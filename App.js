@@ -185,7 +185,7 @@ export default function App() {
               key={i.toString()}
               path={getGear(gear)}
             />
-            <Path color="rgba(77, 132, 212, 0.3)" path={getGear(gear)} />
+            <Path color={gear.fill} path={getGear(gear)} />
           </Group>
         ))}
       </Group>
