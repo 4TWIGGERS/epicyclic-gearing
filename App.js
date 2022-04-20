@@ -12,9 +12,12 @@ import {
   useValueEffect,
   useClockValue,
   useTouchHandler,
+  center,
 } from '@shopify/react-native-skia';
 
 const {width: screenWidth, height} = Dimensions.get('window');
+
+const viewWidth = screenWidth - 200;
 
 export default function App() {
   const frameRadius = useValue(0.5);
@@ -25,8 +28,6 @@ export default function App() {
 
   const x = Math.sin((2 * Math.PI) / 3);
   const y = Math.cos((2 * Math.PI) / 3);
-
-  const viewWidth = screenWidth - 40;
 
   const gears = [
     {fill: '#c6dbef', teeth: 80, radius: -0.5, origin: [0, 0], annulus: true},
@@ -58,7 +59,7 @@ export default function App() {
 
   const frameTransform = useDerivedValue(
     () => [
-      {translateX: viewWidth / 2 + 20},
+      {translateX: screenWidth / 2},
       {translateY: height / 2},
       {
         rotate: frameAngle.current % 360,
@@ -176,7 +177,10 @@ export default function App() {
 
   return (
     <Canvas style={styles.root} onTouch={touchHandler}>
-      <Group transform={frameTransform}>
+      <Group
+        transform={frameTransform}
+        // origin={{x: 60, y: 30}}
+      >
         {gears.map((gear, i) => (
           <Group key={i.toString()} transform={gearTransforms[i]}>
             <Path
@@ -195,5 +199,6 @@ export default function App() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    // marginLeft: 83,
   },
 });
